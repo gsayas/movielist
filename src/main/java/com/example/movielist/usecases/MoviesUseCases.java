@@ -1,6 +1,5 @@
 package com.example.movielist.usecases;
 
-import com.example.movielist.app.Factory;
 import com.example.movielist.dao.MovieDAO;
 import com.example.movielist.domain.Movie;
 import com.example.movielist.domain.MovieSummary;
@@ -11,19 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @NoArgsConstructor
 public class MoviesUseCases {
 
   private MovieDAO movieDAO;
   private Map<String, List<String>> peopleByMovie;
-
-  private Factory factory;
-
-  public MoviesUseCases(Factory factory) {
-    this.factory = factory;
-    this.movieDAO = factory.getMovieDAO();
-  }
 
   public List<MovieSummary> getAllMoviesWithPeople() {
     peopleByMovie = mapMovieToPeople();
@@ -57,6 +50,7 @@ public class MoviesUseCases {
     return movieUrl.substring(movieUrl.lastIndexOf("/") + 1);
   }
 
+  @Autowired
   void setMovieDAO(MovieDAO movieDAO) {
     this.movieDAO = movieDAO;
   }
