@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @RequestMapping(value = "/movies",
     method = RequestMethod.GET,
     produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,9 +22,11 @@ public class MoviesController {
   private
   MoviesUseCases useCases;
 
-  @GetMapping
-  public ResponseEntity<List<MovieSummary>> findAll() {
-    return ResponseEntity.ok(useCases.getAllMoviesWithPeople());
+  @GetMapping()
+  public ModelAndView showAll() {
+    ModelAndView modelAndView = new ModelAndView("movies");
+    modelAndView.addObject("movieSummaryList", useCases.getAllMoviesWithPeople());
+    return modelAndView;
   }
 
 }

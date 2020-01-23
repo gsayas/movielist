@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Movies App</title>
+</head>
+<body>
+<ul th:each="movieSummary : ${movieSummaryList}">
+  <li>
+    <span th:text="${movieSummary.title}" />
+    <ul th:each="personName : ${movieSummary.peopleNames}">
+      <li th:text="${personName}" />
+    </ul>
+  </li>
+</ul>
+</body>
+</html>

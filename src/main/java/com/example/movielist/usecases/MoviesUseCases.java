@@ -28,7 +28,7 @@ public class MoviesUseCases {
   private MovieSummary mapToSummary(Movie movie) {
     return MovieSummary.builder()
         .title(movie.getTitle())
-        .people(peopleByMovie.get(movie.getId()))
+        .peopleNames(peopleByMovie.get(movie.getId()))
         .build();
   }
 

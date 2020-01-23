@@ -9,6 +9,6 @@ import lombok.Getter;
 public class MovieSummary {
 
   private String title;
-  private List<String> people;
+  private List<String> peopleNames;
 
 }
