@@ -1,10 +1,10 @@
 package com.example.movielist.usecases;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.movielist.MovielistApplication;
+import com.example.movielist.app.Factory;
+import com.example.movielist.dao.MovieLocalDAO;
 import com.example.movielist.dao.MovieRestDAO;
 import org.junit.Test;
 import org.junit.platform.commons.logging.Logger;
@@ -28,6 +28,9 @@ public class MoviesUseCasesIT {
   private MoviesUseCases underTest = new MoviesUseCases();
 
   @Autowired
+  private Factory factory;
+
+  @Autowired
   private MockMvc mockMvc;
 
   @Test
@@ -48,6 +51,25 @@ public class MoviesUseCasesIT {
       underTest.getAllMoviesWithPeople();
       stopWatch.stop();
     }
+    LOGGER.info(stopWatch::prettyPrint);
+  }
+
+  @Test
+  public void testServiceLayerResponseTimesWithCachedDAO() {
+    underTest.setMovieDAO(new MovieLocalDAO(factory));
+    StopWatch stopWatch = new StopWatch("Testing Service Layer performances with CachedDAO");
+    float loadTime = 0f;
+
+    for (int i = 0; i < 4; i++) {
+      stopWatch.start("Test iteration " + (i + 1));
+      underTest.getAllMoviesWithPeople();
+      stopWatch.stop();
+      if (i > 0) { //disregard first request until warm up is implemented
+        loadTime += stopWatch.getTotalTimeSeconds();
+      }
+    }
+
+    System.out.println(String.format("Average response time: %f", loadTime / 4));
     LOGGER.info(stopWatch::prettyPrint);
   }
 

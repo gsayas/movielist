@@ -1,31 +1,34 @@
 package com.example.movielist.dao;
 
+import com.example.movielist.app.Factory;
+import com.example.movielist.app.db.GhibliAPIRepository;
 import com.example.movielist.domain.Movie;
 import com.example.movielist.domain.People;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
-import org.springframework.web.client.RestTemplate;
+import lombok.NoArgsConstructor;
 
-public class MovieRestDAO implements MovieDAO {
+@NoArgsConstructor
+public class MovieLocalDAO implements MovieDAO {
 
-  private static final String studio_url_films = "https://ghibliapi.herokuapp.com/films";
-  private static final String studio_url_people = "https://ghibliapi.herokuapp.com/people";
-
-  private RestTemplate restTemplate = new RestTemplate();
   private ObjectMapper objectMapper = new ObjectMapper();
+  private Factory factory;
 
-  public MovieRestDAO() {
+  public MovieLocalDAO(Factory factory) {
+    this.factory = factory;
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 
   @Override
   public List<Movie> getAllMovies() {
+    GhibliAPIRepository repository = factory.getContext().getBean(GhibliAPIRepository.class);
     try {
-      List<Movie> movies = objectMapper
-          .readValue(getRawMovies(), new TypeReference<List<Movie>>() {
-      });
+      List<Movie> movies = objectMapper.readValue(repository.findByEndpoint("MOVIES").getResponse(),
+          new TypeReference<List<Movie>>() {
+          });
+
       return movies;
     } catch (Exception ex) {
       System.out.println("Problem parsing movie JSON");
@@ -35,10 +38,12 @@ public class MovieRestDAO implements MovieDAO {
 
   @Override
   public List<People> getAllPeople() {
+    GhibliAPIRepository repository = factory.getContext().getBean(GhibliAPIRepository.class);
     try {
       List<People> people = objectMapper
-          .readValue(getRawPeople(), new TypeReference<List<People>>() {
-      });
+          .readValue(repository.findByEndpoint("PEOPLE").getResponse(),
+              new TypeReference<List<People>>() {
+              });
 
       return people;
     } catch (Exception ex) {
@@ -46,18 +51,4 @@ public class MovieRestDAO implements MovieDAO {
       return null;
     }
   }
-
-  public String getRawMovies() {
-    return executeCall(studio_url_films);
-  }
-
-  public String getRawPeople() {
-    return executeCall(studio_url_people);
-  }
-
-  private String executeCall(String url) {
-    return restTemplate.getForObject(url, String.class);
-  }
-
-
 }

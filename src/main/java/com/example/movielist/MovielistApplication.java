@@ -1,6 +1,8 @@
 package com.example.movielist;
 
+import com.example.movielist.app.Factory;
 import com.example.movielist.dao.MovieDAO;
+import com.example.movielist.dao.MovieLocalDAO;
 import com.example.movielist.dao.MovieRestDAO;
 import com.example.movielist.usecases.MoviesUseCases;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+@EnableScheduling
 @SpringBootApplication
 public class MovielistApplication {
 
@@ -19,6 +23,10 @@ public class MovielistApplication {
 		SpringApplication.run(MovielistApplication.class, args);
 	}
 
+	@Bean
+	public Factory factory() {
+		return new Factory(context);
+	}
 
 	@Bean
 	public MoviesUseCases moviesUseCases() {
@@ -27,7 +35,7 @@ public class MovielistApplication {
 
 	@Bean
 	public MovieDAO movieDao() {
-		return new MovieRestDAO();
+		return new MovieLocalDAO(factory());
 	}
 
 }
