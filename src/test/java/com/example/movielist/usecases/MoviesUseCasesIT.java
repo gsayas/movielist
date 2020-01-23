@@ -6,7 +6,6 @@ import com.example.movielist.MovielistApplication;
 import com.example.movielist.app.Factory;
 import com.example.movielist.dao.MovieLocalDAO;
 import com.example.movielist.dao.MovieRestDAO;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
