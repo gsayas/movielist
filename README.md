@@ -3,8 +3,7 @@
 ## Local Project setup
 
 ### System Requirements:
-* [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [Installation guide](https://www3.ntu.edu.sg/home/ehchua/programming/howto/JDK_Howto.html)
+* [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) | [Helpful Installation guide](https://www3.ntu.edu.sg/home/ehchua/programming/howto/JDK_Howto.html)
 * [Maven](https://maven.apache.org/install.html)
 
 
