@@ -21,9 +21,9 @@ import org.springframework.util.StopWatch;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MovielistApplication.class)
 @AutoConfigureMockMvc
-public class MoviesUseCasesIT {
+public class MoviesUseCasesIntegrationTest {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(MoviesUseCasesIT.class);
+  private final static Logger LOGGER = LoggerFactory.getLogger(MoviesUseCasesIntegrationTest.class);
 
   private MoviesUseCases underTest = new MoviesUseCases();
 

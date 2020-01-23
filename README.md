@@ -3,8 +3,8 @@
 ## Local Project setup
 
 ### System Requirements:
-* [Maven](https://www.npmjs.com/get-npm)
-* [JDK8](https://www.npmjs.com/get-npm)
+* [Maven](https://maven.apache.org/install.html)
+* [JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 
 ### How to Build
@@ -33,6 +33,6 @@ mvn test
 
 Since I wanted to test out Github actions I created a basic CI/CD pipeline that on every push builds the app, runs the tests and deploys it to heroku.
 
-* [Here](https://github.com/gsayas/negotiation/actions?query=branch%3Amaster+is%3Asuccess) you can see the last successful executions, and check the tests runs without having to install the app locally.
+* [Here](https://github.com/gsayas/movielist/actions?query=branch%3Amaster+is%3Asuccess) you can see the last successful executions, and check the tests runs without having to install the app locally.
 
-* [Here](http://gsayas-front.herokuapp.com/) is the app running in Heroku. Please be aware that I'm using the free tier so it could take it a few seconds on the first request, since it has to start the cloud servers... Be patient :) !
+* [Here](https://gsayas-back.herokuapp.com/movies) is the app running in Heroku. Please be aware that I'm using the free tier so it could take it a few seconds on the first request, since it has to start the cloud servers... Be patient :) !
