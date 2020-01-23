@@ -4,6 +4,7 @@
   <title>Movies App</title>
 </head>
 <body>
+<h1>List of Studio Ghibli movies</h1>
 <ul th:each="movieSummary : ${movieSummaryList}">
   <li>
     <span th:text="${movieSummary.title}" />
