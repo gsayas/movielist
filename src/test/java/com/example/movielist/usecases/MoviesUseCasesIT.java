@@ -6,6 +6,7 @@ import com.example.movielist.MovielistApplication;
 import com.example.movielist.app.Factory;
 import com.example.movielist.dao.MovieLocalDAO;
 import com.example.movielist.dao.MovieRestDAO;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -46,8 +47,8 @@ public class MoviesUseCasesIT {
     underTest.setMovieDAO(new MovieRestDAO());
     StopWatch stopWatch = new StopWatch("Testing Service Layer performances with RestDAO");
 
-    for (int i = 1; i <= 5; i++) {
-      stopWatch.start("Test iteration " + i);
+    for (int i = 0; i < 5; i++) {
+      stopWatch.start("Test iteration " + (i + 1));
       underTest.getAllMoviesWithPeople();
       stopWatch.stop();
     }
@@ -58,19 +59,19 @@ public class MoviesUseCasesIT {
   public void testServiceLayerResponseTimesWithCachedDAO() {
     underTest.setMovieDAO(new MovieLocalDAO(factory));
     StopWatch stopWatch = new StopWatch("Testing Service Layer performances with CachedDAO");
-    float loadTime = 0f;
+    float loadTimeInSeconds = 0f;
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
       stopWatch.start("Test iteration " + (i + 1));
       underTest.getAllMoviesWithPeople();
       stopWatch.stop();
-      if (i > 0) { //disregard first request until warm up is implemented
-        loadTime += stopWatch.getTotalTimeSeconds();
-      }
+      loadTimeInSeconds += stopWatch.getTotalTimeSeconds();
     }
 
-    System.out.println(String.format("Average response time: %f", loadTime / 4));
+    System.out.println(String.format("Average response time in seconds: %f", loadTimeInSeconds / 5));
     LOGGER.info(stopWatch::prettyPrint);
+
+    //Assert.assertTrue(loadTimeInSeconds/5 <= 0.1); //threshold to be defined
   }
 
 }

@@ -20,7 +20,7 @@ public class DatabaseUpdater {
   private
   ApplicationContext context;
 
-  @Scheduled(fixedRate = 5000)
+  @Scheduled(fixedRate = 45000)
   public void updateDatabase() {
     logger.info("Updating API Database :: Execution Time - {}",
         dateTimeFormatter.format(LocalDateTime.now()));

@@ -1,6 +1,7 @@
 package com.example.movielist.usecases;
 
 import com.example.movielist.dao.MovieDAO;
+import com.example.movielist.dao.util.JSONMapper;
 import com.example.movielist.domain.Movie;
 import com.example.movielist.domain.MovieSummary;
 import com.example.movielist.domain.People;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @NoArgsConstructor
@@ -17,8 +20,10 @@ public class MoviesUseCases {
 
   private MovieDAO movieDAO;
   private Map<String, List<String>> peopleByMovie;
+  private Logger logger = LoggerFactory.getLogger(MoviesUseCases.class);
 
   public List<MovieSummary> getAllMoviesWithPeople() {
+    logger.info("getAllMoviesWithPeople() called");
     peopleByMovie = mapMovieToPeople();
     return movieDAO.getAllMovies().stream()
         .map(this::mapToSummary)

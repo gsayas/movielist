@@ -1,5 +1,6 @@
 package com.example.movielist.app;
 
+import com.example.movielist.app.db.GhibliAPIRepository;
 import com.example.movielist.dao.MovieDAO;
 import com.example.movielist.dao.MovieLocalDAO;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,10 @@ public class Factory {
 
   public MovieDAO getMovieDAO() {
     return new MovieLocalDAO(this);
+  }
+
+  public GhibliAPIRepository getRepository() {
+    return this.getContext().getBean(GhibliAPIRepository.class);
   }
 
 }

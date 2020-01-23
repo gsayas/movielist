@@ -1,10 +1,12 @@
 package com.example.movielist;
 
 import com.example.movielist.app.Factory;
+import com.example.movielist.app.db.DatabaseUpdater;
 import com.example.movielist.dao.MovieDAO;
 import com.example.movielist.dao.MovieLocalDAO;
 import com.example.movielist.dao.MovieRestDAO;
 import com.example.movielist.usecases.MoviesUseCases;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +23,16 @@ public class MovielistApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MovielistApplication.class, args);
+	}
+
+	@Bean
+	public InitializingBean preloadApiResponses(DatabaseUpdater updater){
+		return updater::updateDatabase;
+	}
+
+	@Bean
+	public InitializingBean warmUp(MoviesUseCases moviesUseCases){
+		return moviesUseCases::getAllMoviesWithPeople;
 	}
 
 	@Bean
