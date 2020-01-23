@@ -24,10 +24,10 @@ public class DatabaseUpdater {
   public void updateDatabase() {
     logger.info("Updating API Database :: Execution Time - {}",
         dateTimeFormatter.format(LocalDateTime.now()));
-    GhibliAPIRepository repository = context.getBean(GhibliAPIRepository.class);
+    APIRepository repository = context.getBean(APIRepository.class);
     MovieRestDAO restDao = new MovieRestDAO();
-    repository.save(new GhibliAPIRecord("MOVIES", restDao.getRawMovies(), LocalDateTime.now()));
-    repository.save(new GhibliAPIRecord("PEOPLE", restDao.getRawPeople(), LocalDateTime.now()));
+    repository.save(new APIRecord("MOVIES", restDao.getRawMovies(), LocalDateTime.now()));
+    repository.save(new APIRecord("PEOPLE", restDao.getRawPeople(), LocalDateTime.now()));
   }
 
 }

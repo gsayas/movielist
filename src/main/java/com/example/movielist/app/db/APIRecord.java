@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GhibliAPIRecord {
+public class APIRecord {
 
   @Id
   private String endpoint;

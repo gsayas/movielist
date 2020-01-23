@@ -55,9 +55,9 @@ public class MoviesUseCasesIntegrationTest {
   }
 
   @Test
-  public void testServiceLayerResponseTimesWithCachedDAO() {
+  public void testServiceLayerResponseTimesWithLocalDAO() {
     underTest.setMovieDAO(new MovieLocalDAO(factory));
-    StopWatch stopWatch = new StopWatch("Testing Service Layer performances with CachedDAO");
+    StopWatch stopWatch = new StopWatch("Testing Service Layer performances with LocalDAO");
     float loadTimeInSeconds = 0f;
 
     for (int i = 0; i < 5; i++) {
