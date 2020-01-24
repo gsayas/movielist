@@ -50,3 +50,4 @@ To save you from the trouble of setting up a local environment, I created a basi
 
 + Add more tests (to JSONMapper and DatabaseUpdater)
 + Add coverage and other metrics to the pipeline quality gate
++ Port it to Python/Django
